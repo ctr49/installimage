@@ -196,6 +196,17 @@ fi
 wait_for_udev
 
 #
+# LUKS
+#
+
+inc_step
+status_busy "Creating LUKS container"
+make_luks
+status_donefailed $?
+
+wait_for_udev
+
+#
 # LVM
 #
 if [ "$LVM" = "1" ]; then

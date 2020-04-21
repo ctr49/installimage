@@ -1937,6 +1937,13 @@ make_swraid() {
 }
 
 
+make_luks() {
+  echo -n "CHANGEME" | cryptsetup luksFormat /dev/sda2 -d -
+  echo -n "CHANGEME" | cryptsetup luksOpen /dev/sda2 cryptroot -d -
+  return 0
+}
+
+
 make_lvm() {
   if [ -n "$1" ] ; then
     local fstab=$1
@@ -1972,7 +1979,7 @@ make_lvm() {
 
     # create PVs
     for i in $(seq 1 $LVM_VG_COUNT) ; do
-      pv=${dev[${LVM_VG_PART[${i}]}]}
+      pv=/dev/mapper/cryptroot
       debug "# Creating PV $pv"
       wipefs -af $pv |& debugoutput
       pvcreate -ff $pv 2>&1 | debugoutput
@@ -1981,7 +1988,7 @@ make_lvm() {
     # create VGs
     for i in $(seq 1 $LVM_VG_COUNT) ; do
       vg=${LVM_VG_NAME[$i]}
-      pv=${dev[${LVM_VG_PART[${i}]}]}
+      pv=/dev/mapper/cryptroot
 
       # extend the VG if a VG with the same name already exists
       if [ "$(vgs --noheadings 2>/dev/null | grep "$vg")" ]; then
