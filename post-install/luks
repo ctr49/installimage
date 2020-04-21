@@ -20,10 +20,12 @@ aptitude update >/dev/null
 
 echo -e "\n----------------- Make sure we have the same packages as the standard install ------------------\n"
 
-aptitude purge -y amd64-microcode apparmor cpufrequtils discover eject firmware-bnx2x firmware-realtek geoip-database gnupg grub-pc haveged installation-report intel-microcode iputils-clockdiff iputils-tracepath irqbalance laptop-detect ntpdate openssh-server pciutils perl rename sgml-base shared-mime-info usb.ids usbutils vim xdg-user-dirs xml-core
+aptitude -y install acl acpid apt-transport-https at bzip2 cloud-init cloud-initramfs-growroot cloud-utils dbus eatmydata ethtool file gdbm-l10n gettext-base groff-base grub-efi-amd64 grub-pc-bin hdparm htop liblockfile-bin libnss-systemd libpam-systemd locales-all lsof manpages mime-support mtr-tiny ncurses-term netcat-traditional openssh-client openssl patch python python-apt python-minimal python2.7 python3-reportbug qemu-guest-agent reportbug shim-signed sudo traceroute ucf xz-utils
+dpkg -P --force-depends amd64-microcode apparmor cpufrequtils discover eject firmware-bnx2x firmware-realtek geoip-database gnupg grub-pc haveged installation-report intel-microcode iputils-clockdiff iputils-tracepath irqbalance laptop-detect ntpdate openssh-server pciutils perl rename sgml-base shared-mime-info usb.ids usbutils vim xdg-user-dirs xml-core
 aptitude -y -o Aptitude::Delete-Unused=1 purge
-aptitude -y install acl acpid apt-transport-https at bzip2 cloud-init cloud-initramfs-growroot cloud-utils dbus eatmydata ethtool file gdbm-l10n gettext-base groff-base grub-efi-amd64 grub-pc-bin hc-utils hdparm htop liblockfile-bin libnss-systemd libpam-systemd locales-all lsof manpages mime-support mtr-tiny ncurses-term netcat-traditional openssh-client openssl patch python python-apt python-minimal python2.7 python3-reportbug qemu-guest-agent reportbug shim-signed sudo traceroute ucf xz-utils
 aptitude -y safe-upgrade
+curl https://packages.hetzner.com/hcloud/deb/hc-utils_0.0.2-1_all.deb -o /tmp/hc-utils_0.0.2-1_all.deb -s
+apt install -y -f /tmp/hc-utils_0.0.2-1_all.deb
 
 echo -e "\n----------------- Installing the packages and configuration required for FDE -------------------\n"
 
