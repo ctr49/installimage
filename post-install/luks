@@ -12,7 +12,7 @@ export LANG="en_US.UTF-8"
 export LC_ALL="C"
 
 #create lock dir for aptitude
-mkdir /run/lock
+mkdir -p /run/lock
 chmod a+rwxt /run/lock
 
 aptitude update >/dev/null
@@ -20,8 +20,9 @@ aptitude -y safe-upgrade
 
 echo -e "\n----------------- Installing the packages required for FDE ------------------\n"
 
-aptitude -y install busybox dropbear lvm2 cryptsetup-initramfs
+aptitude -y install dropbear-initramfs
 sed -i 's/^.?BUSYBOX=.*/BUSYBOX=y/' /etc/initramfs-tools/initramfs.conf
 sed -i 's/^.?DROPBEAR_OPTIONS=.*/DROPBEAR_OPTIONS="-s -j -k -p 65222"/' /etc/dropbear-initramfs/config
-cat /root/.ssh/robot_user_keys >> /etc/dropbear-initramfs/authorized_keys
-update-initramfs -u 
+echo "/dev/mapper/cryptroot /dev/sda2 none luks" > /etc/crypttab
+cat /root/.ssh/authorized_keys >> /etc/dropbear-initramfs/authorized_keys
+update-initramfs -u
