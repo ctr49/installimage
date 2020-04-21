@@ -1938,8 +1938,11 @@ make_swraid() {
 
 
 make_luks() {
-  echo -n "CHANGEME" | cryptsetup luksFormat /dev/sda2 -d -
-  echo -n "CHANGEME" | cryptsetup luksOpen /dev/sda2 cryptroot -d -
+  local luks_passphrase; luks_passphrase=$(generate_password)
+  echo "The LUKS passphrase is '$luks_passphrase'"
+  echo "!!! Save this information, otherwise you will not be able to boot into the newly created system !!!"
+  echo -n $luks_passphrase | cryptsetup luksFormat /dev/sda2 -d -
+  echo -n $luks_passphrase | cryptsetup luksOpen /dev/sda2 cryptroot -d -
   return 0
 }
 

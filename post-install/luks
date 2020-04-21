@@ -25,5 +25,5 @@ mkdir -p /etc/dropbear-initramfs
 cat /root/.ssh/authorized_keys >> /etc/dropbear-initramfs/authorized_keys
 aptitude -y install dropbear-initramfs
 sed -Ei 's/^.?BUSYBOX=.*/BUSYBOX=y/' /etc/initramfs-tools/initramfs.conf
-sed -Ei 's/^.?DROPBEAR_OPTIONS=.*/DROPBEAR_OPTIONS="-s -j -k -p 65222 -c /bin/cryptroot-unlock"/' /etc/dropbear-initramfs/config
+sed -Ei 's/^.?DROPBEAR_OPTIONS=.*/DROPBEAR_OPTIONS="-s -j -k -p 65222 -c \/bin\/cryptroot-unlock"/' /etc/dropbear-initramfs/config
 update-initramfs -u
