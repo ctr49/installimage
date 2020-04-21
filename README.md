@@ -22,6 +22,17 @@ Please unlock disk cryptroot:
  * note: your input is not visible, so just enter the LUKS passphrase blindly and hit enter
 7. Enjoy your fully encrypted system.
 
-CAVEATS:
-* the default image is the same as if you installed directly through Hetzner
-* only LVM and LUKS with a slightly changed partition layout are changed from the standard setup
+## CAVEATS:
+* partition layout (single disk sda, no raid) are  currently hard-coded.
+* logical volume names and sizes are passed as installimage parameter (-v), adjust as needed. above example results in the following setup
+|logical volume name or partition|mount point|size|
+| --- | --- | ---- |
+|/dev/sda1|/boot|0.5GB|
+|/dev/sda2|LUKS container|remaining space|
+|swap||4GB|
+|root|/|5GB|
+|var|/var|3GB|
+|tmp|/tmp|0.5GB|
+|home|/home|0.5GB|
+* remaining space in the volume group is available for a data volume or to extend existing volumes
+* compared to the default setup, only LVM and LUKS with above mentioned layout are added otherwise the installed system is the same as if you installed directly through Hetzner
