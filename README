@@ -9,5 +9,5 @@ clone this into a running rescue image and invoke installation:
 
 ```
 git clone https://github.com/ctr49/installimage.git
-/root/installimage/installimage -p /boot:ext4:512M,lvm:vg0:all -v vg0:swap:swap:swap:4G,vg0:root:/:ext4:1500M,vg0:usr:/usr/:ext4:5G,vg0:var:/var/:ext4:3G,vg0:tmp:/tmp/:ext4:500M,vg0:home:/home/:ext4:500M -i /root/images/Debian-103-buster-64-minimal.tar.gz -K /root/.ssh/robot_user_keys -x luks -a
+/root/installimage/installimage -p /boot:ext4:512M,lvm:vg0:all -v vg0:swap:swap:swap:4G,vg0:root:/:ext4:5G,vg0:var:/var/:ext4:3G,vg0:tmp:/tmp/:ext4:500M,vg0:home:/home/:ext4:500M -i /root/images/Debian-103-buster-64-minimal.tar.gz -K /root/.ssh/robot_user_keys -x luks -a
 ```
