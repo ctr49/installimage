@@ -25,7 +25,8 @@ Please unlock disk cryptroot:
 ## CAVEATS:
 * partition layout (single disk sda, no raid) are  currently hard-coded.
 * logical volume names and sizes are passed as installimage parameter (-v), adjust as needed. above example results in the following setup
-|logical volume name or partition|mount point|size|
+
+|logical volume name or partition| mount point|size|
 | --- | --- | ---- |
 |/dev/sda1|/boot|0.5GB|
 |/dev/sda2|LUKS container|remaining space|
@@ -34,5 +35,7 @@ Please unlock disk cryptroot:
 |var|/var|3GB|
 |tmp|/tmp|0.5GB|
 |home|/home|0.5GB|
+
 * remaining space in the volume group is available for a data volume or to extend existing volumes
 * compared to the default setup, only LVM and LUKS with above mentioned layout are added otherwise the installed system is the same as if you installed directly through Hetzner
+ * the Hetzner install images user from Cloud Console and rescue-system/installimage are not identical. The post-install script herein attempts to bring the image into a state most similar to the image installed via Cloud Console.
